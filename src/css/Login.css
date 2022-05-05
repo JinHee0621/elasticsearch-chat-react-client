@@ -1,0 +1,22 @@
+#main {
+    text-align: center;
+}
+
+#doLogin {
+    width: 85px;
+    margin-top: 5px;
+    padding: 8px;
+    font-size: 20px;
+    font-weight: bolder;
+    border-radius: 4px;
+}
+
+#doJoin {
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+#title {
+    width: 270px;
+    height: 380px;
+}
