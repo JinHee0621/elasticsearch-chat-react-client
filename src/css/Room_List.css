@@ -1,0 +1,29 @@
+.room_container {
+    text-align: center;
+    border: 1px solid black;   
+    padding: 5px;
+}
+
+.room_element {
+    border: 1px solid black;
+    font-size: 15px;
+    font-weight: bolder;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 3px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.room_element:hover {
+    border: 2px solid black;
+    font-size: 15px;
+    font-weight: bolder;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 3px;
+    text-align: left;
+    box-shadow: 5px 3px 3px gray;
+    transition: 0.1s;
+    text-decoration: none;
+}
