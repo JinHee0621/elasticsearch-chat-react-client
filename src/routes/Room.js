@@ -15,25 +15,35 @@ function Room({ location, history }) {
     }, [])
 
     useEffect(() => {
-        socket.on('recept_message', (message) => {
-            addMessage('otherUser', message, 'other')
+        socket.on('recept_message', (message, user) => {
+            addMessage(user, message, 'other')
         });
     }, [])
 
-    const addMessage = (name , message, target) => {
+    const addMessage = (name, message, target) => {
         let message_div = {
             "userName" : name,
             "message" : message,
-            "user" : target
+            "type" : target
         }
+        if(message_div.type == 'me') message_div.userName = 'me'
         setLog((currentArray) => [ ...currentArray,message_div])
     }
 
     const onInputMessage = (event) => setMessage(event.target.value);
+
     const doSend = (event) => {
-        socket.emit('send', message, roomid); // check 요청
-        addMessage(location.room_id, message, 'me')
+        socket.emit('send', location.user_id ,message, roomid); // check 요청
+        addMessage(location.user_id, message, 'me')
         setMessage("");
+        event.preventDefault();
+    }
+
+    const goList = (event) => {
+        history.push({
+            pathname : '/roomList/' + location.user_id,
+            user_id : location.user_id
+        })
         event.preventDefault();
     }
 
@@ -56,6 +66,9 @@ function Room({ location, history }) {
                     <button onClick={doSend} id="doSend">전송</button>
                 </div>
             </form>
+            <div>
+            <button onClick={goList} id="goList">뒤로</button>
+            </div>
         </div>
     </div>
 }

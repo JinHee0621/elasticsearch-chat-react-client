@@ -17,7 +17,8 @@ function RoomList({location, history}) {
     const connect_room = (roomInfo) => {
         history.push({
             pathname : '/room/' + roomInfo.target.id,
-            room_id : roomInfo.target.id
+            room_id : roomInfo.target.id,
+            user_id : location.user_id
           })
     }
 
