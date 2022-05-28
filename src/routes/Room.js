@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
+import "../css/Room.css";
 const socket = io("http://localhost:3001/");  //3001 Back단 서버포트
 
 function Room({ location, history }) {
@@ -49,13 +50,16 @@ function Room({ location, history }) {
 
     return <div>
         <div>
-            대화내용
+            <button onClick={goList} id="goList">뒤로</button>
         </div>
-        <div>
+        <div id="meesage_main">
             <form onSubmit={doSend}>
                 <div id="message_window">
                     {messageLog.map((message_div, index) => (
-                        <div className={message_div.user} key={index}>{message_div.userName} : {message_div.message}</div>
+                        <div className={message_div.type} key={index}>
+                            <div className='userName'>{message_div.userName}</div>
+                            <div className='userMessage'>{message_div.message}</div>
+                        </div>
                     ))
                     }
                 </div>
@@ -66,9 +70,6 @@ function Room({ location, history }) {
                     <button onClick={doSend} id="doSend">전송</button>
                 </div>
             </form>
-            <div>
-            <button onClick={goList} id="goList">뒤로</button>
-            </div>
         </div>
     </div>
 }

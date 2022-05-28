@@ -1,0 +1,36 @@
+#meesage_main {
+    text-align: center;
+}
+
+#meesage_main div {
+    margin : 5px;
+}
+
+#meesage_main #message_window {
+    height: 250px;
+    border: 1px solid black;   
+}
+
+#message_window div{
+    margin: 0px;
+    margin-left: 2px;
+}
+
+#message_window .me{
+    text-align: left;
+}
+
+#message_window .other{
+    text-align: right;
+}
+
+.userName{
+    font-size: smaller;
+    font-weight: bolder;
+}
+
+.userMessage{
+    border: 1px solid black;
+    font-size: small;
+    border-radius: 5px;
+}
