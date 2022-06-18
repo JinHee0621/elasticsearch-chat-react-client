@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
@@ -9,6 +9,8 @@ function Room({ location, history }) {
     const [roomid, setRoomId] = useState("");
     const [message, setMessage] = useState("");
     const [messageLog, setLog] = useState([]);
+    const testRef = useRef(null);
+
 
     useEffect(() => {
         setRoomId(location.room_id);
@@ -17,25 +19,31 @@ function Room({ location, history }) {
 
     useEffect(() => {
         socket.on('recept_message', (message, user) => {
-            addMessage(user, message, 'other')
+            addMessage(user, message, 'other', message?.length)
         });
     }, [])
 
-    const addMessage = (name, message, target) => {
+    const addMessage = (name, message, target, length) => {
+        length = ( length < 100 ) ? 100 : length;
         let message_div = {
             "userName" : name,
             "message" : message,
-            "type" : target
+            "type" : target,
+            "length" : length
         }
         if(message_div.type == 'me') message_div.userName = 'me'
+
+        console.log('문장길이: ' + message_div.message?.length)
+
         setLog((currentArray) => [ ...currentArray,message_div])
+        testRef.current = message_div;
     }
 
     const onInputMessage = (event) => setMessage(event.target.value);
 
     const doSend = (event) => {
         socket.emit('send', location.user_id ,message, roomid); // check 요청
-        addMessage(location.user_id, message, 'me')
+        addMessage(location.user_id, message, 'me', message?.length)
         setMessage("");
         event.preventDefault();
     }
@@ -57,8 +65,8 @@ function Room({ location, history }) {
                 <div id="message_window">
                     {messageLog.map((message_div, index) => (
                         <div className={message_div.type} key={index}>
-                            <div className='userName'>{message_div.userName}</div>
-                            <div className='userMessage'>{message_div.message}</div>
+                            <div className='userName' style={{width : message_div.length}}>{message_div.userName}</div>
+                            <div className='userMessage' style={{width : message_div.length}}>{message_div.message}</div>
                         </div>
                     ))
                     }

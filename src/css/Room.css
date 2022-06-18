@@ -17,11 +17,15 @@
 }
 
 #message_window .me{
+    margin-right: 100%;
     text-align: left;
+    float: left;
 }
 
 #message_window .other{
+    margin-left: 100%;
     text-align: right;
+    float: right;
 }
 
 .userName{
@@ -31,6 +35,7 @@
 
 .userMessage{
     border: 1px solid black;
+    padding: 2px;
     font-size: small;
     border-radius: 5px;
 }
