@@ -1,18 +1,21 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import "../css/Room_List.css";
 const socket = io("http://localhost:3001/");  //3001 Back단 서버포트
 
 function RoomList({location, history}) {
+    
+    const [room, setRoom] = useState([]);
+
     useEffect(()=>{
         socket.emit('loadRoom', location.user_id); 
     }, []);
+
     socket.on('renderlist', (room) => {
         setRoom(room);
     });
-    const [room, setRoom] = useState([]);
+
 
     const connect_room = (roomInfo) => {
         history.push({

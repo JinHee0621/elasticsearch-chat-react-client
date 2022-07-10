@@ -7,13 +7,33 @@
 }
 
 #meesage_main #message_window {
-    height: 250px;
-    border: 1px solid black;   
+    height: 500px;
+    border: 1px solid black;  
+    border-radius: 5px; 
+    overflow: scroll;
+    overflow-x: hidden;
 }
+
+#meesage_main #message_window::-webkit-scrollbar {
+    width: 8px;
+}
+
+#meesage_main #message_window::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+}
+
+#meesage_main #message_window::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
 
 #message_window div{
     margin: 0px;
     margin-left: 2px;
+    margin-right: 2px;
 }
 
 #message_window .me{

@@ -11,7 +11,6 @@ function Room({ location, history }) {
     const [messageLog, setLog] = useState([]);
     const testRef = useRef(null);
 
-
     useEffect(() => {
         setRoomId(location.room_id);
         socket.emit('enterRoom', location.room_id);
@@ -21,7 +20,18 @@ function Room({ location, history }) {
         socket.on('recept_message', (message, user) => {
             addMessage(user, message, 'other', message?.length)
         });
+
+        socket.on('load_message', (message, user) => {
+            if(user == location.user_id){
+                addMessage(user, message, 'me', message?.length)
+            }
+            else{
+                addMessage(user, message, 'other', message?.length)
+            }
+        });
+        
     }, [])
+
 
     const addMessage = (name, message, target, length) => {
         length = ( length < 100 ) ? 100 : length;

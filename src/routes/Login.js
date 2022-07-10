@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import image from "../image/titleImage.png";
 import "../css/Login.css";
 import io from "socket.io-client";
@@ -12,6 +12,12 @@ function Login({history}) {
           user_id : user
         })
     })
+
+    useEffect(() => {
+        socket.on('failLogin', () => {
+            alert("아이디 또는 패스워드가 틀립니다.")       
+        })
+    },[])
 
     const [id, setId] = useState("");
     const [password, setPass] = useState("");
@@ -33,7 +39,7 @@ function Login({history}) {
         if (id === '' || password === '' || id === undefined || password === undefined) {
             alert("아이디 또는 패스워드를 입력해주세요")
         } else {
-            socket.emit('join', id, password); // 가입 요청      
+            socket.emit('join', id, password); // 가입 요청    
         }
     }
 
